@@ -1,0 +1,3 @@
+## Pico React
+
+A simple photo search application designed via React, redux and observables...
