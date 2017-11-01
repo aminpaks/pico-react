@@ -1,0 +1,21 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+
+html, body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  min-height: 100%;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+input[type=text] {
+  font-size: 1em;
+  padding: 0.4em;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  outline: none;
+}

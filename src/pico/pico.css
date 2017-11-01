@@ -1,0 +1,14 @@
+.pico {
+  padding: 2em;
+  display: block; }
+  .pico .pico-photo-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; }
+    .pico .pico-photo-container.is-empty {
+      flex-direction: column; }
+  .pico .pico-query {
+    width: 60%; }
+    .pico .pico-query input {
+      width: 100%;
+      margin-bottom: 2em; }

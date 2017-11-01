@@ -1,0 +1,21 @@
+.pico figure {
+  margin: 1em;
+  padding: 1em;
+  display: block;
+  flex: 0 0 18%;
+  transition: 180ms ease-in-out; }
+  .pico figure:hover {
+    background-color: #eee; }
+  .pico figure > a {
+    width: 100%;
+    display: block; }
+  .pico figure img {
+    max-width: 100%;
+    justify-self: center; }
+  .pico figure figcaption {
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; }
+    .pico figure figcaption a:not(:last-of-type) {
+      padding-right: 0.4em; }
