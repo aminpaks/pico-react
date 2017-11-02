@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Subject } from 'rxjs/Subject';
-import { of } from 'ix/iterable/of';
 import { connect, Dispatch } from 'react-redux';
 import { PlainAction } from 'redux-typed-actions';
 import { PicoPhotosLoad } from './_state/actions';
@@ -10,9 +9,12 @@ import Photo from './photo/photo';
 import './pico.css';
 import './pico.scss';
 
+// Action creator
+const fetchPhotos = (query: string, page: number = 1) => PicoPhotosLoad.get({ query, page });
+
 interface PicoProps {
   photos: PicoPhoto[];
-  fetchPhotos: (query: string, page?: number) => PlainAction;
+  fetchPhotos: typeof fetchPhotos;
 }
 
 export class Pico extends React.Component<PicoProps, PicoState> {
@@ -31,10 +33,10 @@ export class Pico extends React.Component<PicoProps, PicoState> {
   handleQueryInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.input$.next(e.target.value)
 
-  handlePhotos = () => {
+  renderPhotos = () => {
     const self = this;
     if (this.props.photos.length > 0) {
-      return this.props.photos.map(photo => (<Photo photo={photo} />));
+      return this.props.photos.map(photo => (<Photo key={photo.id} photo={photo} />));
     } else {
       return (<span className="message">Enter to start searching...</span>);
     }
@@ -57,7 +59,7 @@ export class Pico extends React.Component<PicoProps, PicoState> {
             onChange={this.handleQueryInput}
           />
         </div>
-        <div className={photoContainerClassName.join(' ')}>{this.handlePhotos()}</div>
+        <div className={photoContainerClassName.join(' ')}>{this.renderPhotos()}</div>
       </div>
     );
   }
@@ -67,6 +69,4 @@ const mapStateToProps = (state: RootState) => ({
   photos: state.Pico.photos,
 });
 
-export default connect(mapStateToProps, (dispatch: Dispatch<PlainAction>) => ({
-  fetchPhotos: (query: string, page: number = 1) => dispatch(PicoPhotosLoad.get({ query, page })),
-}))(Pico);
+export default connect(mapStateToProps, { fetchPhotos })(Pico);
