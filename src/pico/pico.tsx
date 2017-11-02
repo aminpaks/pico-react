@@ -9,12 +9,9 @@ import Photo from './photo/photo';
 import './pico.css';
 import './pico.scss';
 
-// Action creator
-const fetchPhotos = (query: string, page: number = 1) => PicoPhotosLoad.get({ query, page });
-
 interface PicoProps {
   photos: PicoPhoto[];
-  fetchPhotos: typeof fetchPhotos;
+  fetchPhotos: typeof PicoPhotosLoad.get;
 }
 
 export class Pico extends React.Component<PicoProps, PicoState> {
@@ -26,7 +23,7 @@ export class Pico extends React.Component<PicoProps, PicoState> {
     this.input$
       .debounceTime(500)
       .filter(value => value.length > 0)
-      .subscribe(value => this.props.fetchPhotos(value, 1));
+      .subscribe(value => this.props.fetchPhotos({ query: value }));
 
   }
 
@@ -65,8 +62,8 @@ export class Pico extends React.Component<PicoProps, PicoState> {
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): Partial<PicoState> => ({
   photos: state.Pico.photos,
 });
 
-export default connect(mapStateToProps, { fetchPhotos })(Pico);
+export default connect(mapStateToProps, { fetchPhotos: PicoPhotosLoad.get })(Pico);
